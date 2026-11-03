@@ -9,7 +9,13 @@ import './App.css';
 
 function getCurrentPage() {
   const page = window.location.hash.replace('#', '');
-  const validPages = ['welcome', 'letter', 'story', 'proposal', 'celebration'];
+  const validPages = [
+    'welcome',
+    'letter',
+    'story',
+    'proposal',
+    'celebration',
+  ];
 
   return validPages.includes(page) ? page : 'welcome';
 }
@@ -22,6 +28,7 @@ function App() {
   useEffect(() => {
     const handleNavigation = () => {
       setCurrentPage(getCurrentPage());
+      setSubmissionError('');
     };
 
     window.addEventListener('hashchange', handleNavigation);
@@ -41,7 +48,7 @@ function App() {
     }
   };
 
-  const handleYes = async () => {
+  const handleResponse = async (answer) => {
     if (isSubmitting) return;
 
     setIsSubmitting(true);
@@ -54,7 +61,7 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          response: 'yes',
+          response: answer,
           website: '',
         }),
       });
@@ -67,7 +74,13 @@ function App() {
         );
       }
 
-      navigateTo('celebration');
+      if (answer === 'yes') {
+        navigateTo('celebration');
+      } else if (answer === 'time') {
+        window.dispatchEvent(
+          new CustomEvent('faith-proposal-time-response')
+        );
+      }
     } catch (error) {
       console.error('Proposal response error:', error);
 
@@ -96,7 +109,8 @@ function App() {
       {currentPage === 'proposal' && (
         <>
           <Proposal
-            onYes={handleYes}
+            onYes={() => handleResponse('yes')}
+            onTime={() => handleResponse('time')}
             isSubmitting={isSubmitting}
           />
 

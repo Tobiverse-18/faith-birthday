@@ -1,11 +1,30 @@
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Sparkles, ArrowRight, Clock } from 'lucide-react';
 import './Proposal.css';
 
-function Proposal({ onYes, isSubmitting = false }) {
+function Proposal({
+  onYes,
+  onTime,
+  isSubmitting = false,
+}) {
   const [answer, setAnswer] = useState('');
+
+  useEffect(() => {
+    const handleTimeResponse = () => setAnswer('time');
+
+    window.addEventListener(
+      'faith-proposal-time-response',
+      handleTimeResponse
+    );
+
+    return () => {
+      window.removeEventListener(
+        'faith-proposal-time-response',
+        handleTimeResponse
+      );
+    };
+  }, []);
 
   return (
     <main className="proposal-page">
@@ -71,7 +90,7 @@ function Proposal({ onYes, isSubmitting = false }) {
 
                 <button
                   className="proposal-time-button"
-                  onClick={() => setAnswer('time')}
+                  onClick={onTime}
                   disabled={isSubmitting}
                 >
                   <Clock size={16} />
