@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Sparkles, ArrowRight, Clock } from 'lucide-react';
 import './Proposal.css';
 
-function Proposal({ onYes }) {
+function Proposal({ onYes, isSubmitting = false }) {
   const [answer, setAnswer] = useState('');
 
   return (
@@ -61,15 +61,18 @@ function Proposal({ onYes }) {
               <div className="proposal-actions">
                 <button
                   className="proposal-yes-button"
-                  onClick={() => onYes()}
+                  onClick={onYes}
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
                 >
-                  YES, I'D LOVE TO
-                  <Heart size={17} />
+                  {isSubmitting ? 'SENDING...' : "YES, I'D LOVE TO"}
+                  {!isSubmitting && <Heart size={17} />}
                 </button>
 
                 <button
                   className="proposal-time-button"
                   onClick={() => setAnswer('time')}
+                  disabled={isSubmitting}
                 >
                   <Clock size={16} />
                   I NEED A LITTLE TIME

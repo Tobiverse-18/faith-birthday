@@ -16,6 +16,8 @@ function getCurrentPage() {
 
 function App() {
   const [currentPage, setCurrentPage] = useState(getCurrentPage);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState('');
 
   useEffect(() => {
     const handleNavigation = () => {
@@ -39,6 +41,44 @@ function App() {
     }
   };
 
+  const handleYes = async () => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmissionError('');
+
+    try {
+      const response = await fetch('/api/response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          response: 'yes',
+          website: '',
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || 'We could not send your response.'
+        );
+      }
+
+      navigateTo('celebration');
+    } catch (error) {
+      console.error('Proposal response error:', error);
+
+      setSubmissionError(
+        error.message || 'Something went wrong. Please try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="app">
       {currentPage === 'welcome' && (
@@ -54,7 +94,35 @@ function App() {
       )}
 
       {currentPage === 'proposal' && (
-        <Proposal onYes={() => navigateTo('celebration')} />
+        <>
+          <Proposal
+            onYes={handleYes}
+            isSubmitting={isSubmitting}
+          />
+
+          {submissionError && (
+            <div
+              role="alert"
+              style={{
+                position: 'fixed',
+                bottom: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 'calc(100% - 32px)',
+                maxWidth: '420px',
+                padding: '14px 18px',
+                background: '#641b30',
+                color: '#fff',
+                borderRadius: '8px',
+                textAlign: 'center',
+                zIndex: 1000,
+                fontSize: '14px',
+              }}
+            >
+              {submissionError}
+            </div>
+          )}
+        </>
       )}
 
       {currentPage === 'celebration' && <Celebration />}
