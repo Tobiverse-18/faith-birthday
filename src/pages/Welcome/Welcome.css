@@ -1,0 +1,389 @@
+.welcome {
+  min-height: 100svh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 24px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(115, 35, 56, 0.5),
+      transparent 55%
+    ),
+    linear-gradient(
+      145deg,
+      #260711 0%,
+      #430d20 48%,
+      #20050d 100%
+    );
+}
+
+/* Background texture */
+
+.welcome-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+/* Ambient lighting */
+
+.welcome-glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.welcome-glow-one {
+  background: rgba(185, 79, 99, 0.16);
+  top: -180px;
+  left: -150px;
+}
+
+.welcome-glow-two {
+  background: rgba(206, 158, 91, 0.12);
+  bottom: -200px;
+  right: -120px;
+}
+
+/* Main content */
+
+.welcome-content {
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Top label */
+
+.welcome-top-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 3px;
+  font-weight: 500;
+  margin-bottom: 48px;
+}
+
+.welcome-top-label svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* Animated heart */
+
+.welcome-heart {
+  color: #e5b6a9;
+  margin-bottom: 28px;
+  display: inline-flex;
+}
+
+/* Typography */
+
+.welcome-eyebrow {
+  color: #d9b98b;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 17px;
+}
+
+.welcome-main h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(65px, 10vw, 105px);
+  line-height: 0.91;
+  letter-spacing: -3px;
+  color: #fff4e9;
+}
+
+.welcome-main h1 span {
+  display: block;
+  font-style: italic;
+  font-weight: 500;
+  color: #dfb982;
+  margin-top: 10px;
+}
+
+/* Decorative divider */
+
+.welcome-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #d6ad79;
+  margin: 32px auto 25px;
+}
+
+.welcome-divider span {
+  height: 1px;
+  width: 48px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #b28b62
+  );
+}
+
+.welcome-divider span:last-child {
+  transform: rotate(180deg);
+}
+
+/* Description */
+
+.welcome-description {
+  max-width: 430px;
+  margin: 0 auto;
+  color: #e4d0c7;
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Nickname */
+
+.welcome-nickname {
+  margin-top: 24px;
+  color: #e5b9a7;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.welcome-nickname svg {
+  color: #d6ad79;
+  flex-shrink: 0;
+}
+
+/* Main button */
+
+.welcome-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 42px;
+  padding: 17px 27px;
+  min-width: 230px;
+  border: 1px solid rgba(221, 185, 131, 0.7);
+  border-radius: 2px;
+  background: linear-gradient(
+    120deg,
+    #d9b57e,
+    #c59b65
+  );
+  color: #35101a;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.welcome-button:hover {
+  background: #f0d4a5;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-button svg {
+  transition: transform 0.3s ease;
+}
+
+.welcome-button:hover svg {
+  transform: translateX(5px);
+}
+
+/* Footer message */
+
+.welcome-footer {
+  margin-top: 24px;
+  color: rgba(244, 222, 207, 0.55);
+  font-family: var(--serif);
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* Floral decorations */
+
+.welcome-decoration {
+  position: absolute;
+  color: rgba(219, 170, 125, 0.16);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-decoration svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 0.7;
+}
+
+.welcome-decoration-left {
+  width: 190px;
+  height: 190px;
+  left: -35px;
+  top: 12%;
+  transform: rotate(-35deg);
+}
+
+.welcome-decoration-right {
+  width: 190px;
+  height: 190px;
+  right: -35px;
+  bottom: 9%;
+  transform: rotate(35deg);
+}
+
+/* Bottom signature */
+
+.welcome-bottom {
+  position: absolute;
+  bottom: 28px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: rgba(239, 215, 194, 0.48);
+  font-size: 8px;
+  letter-spacing: 2.5px;
+}
+
+.welcome-bottom svg {
+  color: #d4a278;
+}
+
+/* Second welcome screen */
+
+.welcome-second {
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-second h1 {
+  font-size: clamp(55px, 9vw, 85px);
+}
+
+/* Coming soon message */
+
+.welcome-coming {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-top: 40px;
+}
+
+/* Mobile responsiveness */
+
+@media (max-width: 600px) {
+  .welcome {
+    padding: 65px 22px 85px;
+  }
+
+  .welcome-top-label {
+    font-size: 7px;
+    letter-spacing: 1.7px;
+    gap: 7px;
+    margin-bottom: 43px;
+  }
+
+  .welcome-main h1 {
+    font-size: clamp(61px, 16vw, 82px);
+    letter-spacing: -2px;
+  }
+
+  .welcome-description {
+    font-size: 19px;
+    max-width: 340px;
+  }
+
+  .welcome-nickname {
+    font-size: 20px;
+  }
+
+  .welcome-decoration-left,
+  .welcome-decoration-right {
+    width: 115px;
+    height: 115px;
+  }
+
+  .welcome-decoration-left {
+    left: -35px;
+    top: 8%;
+  }
+
+  .welcome-decoration-right {
+    right: -35px;
+    bottom: 10%;
+  }
+
+  .welcome-bottom {
+    bottom: 20px;
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    gap: 9px;
+  }
+
+  .welcome-button {
+    margin-top: 35px;
+  }
+}
+
+/* Small phones */
+
+@media (max-width: 360px) {
+  .welcome-main h1 {
+    font-size: 57px;
+  }
+
+  .welcome-description {
+    font-size: 17px;
+  }
+
+  .welcome-top-label {
+    letter-spacing: 1px;
+  }
+}
+
+/* Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-button,
+  .welcome-button svg {
+    transition: none;
+  }
+
+  .welcome {
+    scroll-behavior: auto;
+  }
+}
